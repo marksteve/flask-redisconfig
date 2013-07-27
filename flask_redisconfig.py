@@ -1,7 +1,6 @@
 import cmd
 
 from durabledict import RedisDict
-from flask import current_app
 from redis import Redis
 
 
@@ -21,8 +20,8 @@ class RedisConfig(RedisDict):
         super(RedisConfig, self).__init__(key_prefix, self.redis,
                                           autosync=autosync)
 
-    def load(self):
-        current_app.config.update(**self)
+    def load(self, app):
+        app.config.update(**self)
 
     def cli(self, app=None):
         if app:
