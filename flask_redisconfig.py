@@ -1,6 +1,7 @@
 import cmd
 
 from durabledict import RedisDict
+from flask import current_app
 from redis import Redis
 
 
@@ -10,9 +11,6 @@ class RedisConfig(RedisDict):
             self.init_app(app)
 
     def init_app(self, app):
-        if hasattr(self, 'app'):
-            raise AttributeError("Already bound to an app instance")
-        self.app = app
         key_prefix = app.config.get('REDISCONFIG_KEY_PREFIX')
         if not key_prefix:
             raise KeyError('REDISCONFIG_KEY_PREFIX is not defined')
@@ -24,9 +22,7 @@ class RedisConfig(RedisDict):
                                           autosync=autosync)
 
     def load(self):
-        if not hasattr(self, 'app'):
-            raise AttributeError("Hasn't been bound to an app instance yet")
-        self.app.config.update(**self)
+        current_app.config.update(**self)
 
     def cli(self, app=None):
         if app:
