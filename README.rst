@@ -15,7 +15,7 @@ Usage
     app = Flask(__name__)
     app.config.update(REDISCONFIG_KEY_PREFIX='app:config')
     config = RedisConfig(app)
-    config.load()
+    config.load(app)
 
 ----------------------
 Command Line Interface
