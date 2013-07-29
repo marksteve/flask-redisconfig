@@ -5,9 +5,8 @@ from flask.ext.redisconfig import RedisConfig
 
 
 app = Flask(__name__)
-app.config.update(REDISCONFIG_KEY_PREFIX='app:config')
-config = RedisConfig(app)
-config.load()
+config = RedisConfig('app:config')
+config.init_app(app)
 
 
 @app.route('/')

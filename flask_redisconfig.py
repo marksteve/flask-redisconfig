@@ -5,27 +5,22 @@ from redis import Redis
 
 
 class RedisConfig(RedisDict):
-    def __init__(self, app=None):
+    def __init__(self, key_prefix, host='localhost', port=6379, app=None):
+        self.key_prefix = key_prefix
+        self.host = host
+        self.port = port
+        self.redis = Redis(self.host, self.port)
+        super(RedisConfig, self).__init__(self.key_prefix, self.redis,
+                                          autosync=False)
         if app:
             self.init_app(app)
-
-    def init_app(self, app):
-        key_prefix = app.config.get('REDISCONFIG_KEY_PREFIX')
-        if not key_prefix:
-            raise KeyError('REDISCONFIG_KEY_PREFIX is not defined')
-        host = app.config.get('REDISCONFIG_HOST', 'localhost')
-        port = app.config.get('REDISCONFIG_PORT', 6379)
-        self.redis = Redis(host, port)
-        autosync = app.config.get('REDISCONFIG_AUTOSYNC', True)
-        super(RedisConfig, self).__init__(key_prefix, self.redis,
-                                          autosync=autosync)
 
     def load(self, app):
         app.config.update(**self)
 
-    def cli(self, app=None):
-        if app:
-            self.init_app(app)
+    init_app = load
+
+    def cli(self):
         try:
             Cli(self).cmdloop()
         except KeyboardInterrupt:
