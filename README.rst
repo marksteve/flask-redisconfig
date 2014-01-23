@@ -48,7 +48,9 @@ A CLI utility is provided for setting or reviewing config values easily.
 -------
 Example
 -------
+
 ::
+
     $ python example.py config
     $ python example.py
 
