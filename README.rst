@@ -2,6 +2,8 @@
 Flask-RedisConfig
 =================
 
+.. image:: http://img.shields.io/pypi/v/Flask-RedisConfig.png
+
 Redis-backed config for Flask applications based on the `disqus/durabledict <https://github.com/disqus/durabledict>`_ library
 
 -----
