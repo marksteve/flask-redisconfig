@@ -54,6 +54,7 @@ class Cli(cmd.Cmd, object):
             else:
                 value = cast(value)
             self.redisconfig[key] = value
+            print '%s = %r' % (key, value)
         except ValueError:
             self.do_help('set')
 
