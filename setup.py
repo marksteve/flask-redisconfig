@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='Flask-RedisConfig',
-    version='0.2.0',
+    version='0.3.0',
     url='https://github.com/marksteve/flask-redisconfig',
     license='MIT',
     author='Mark Steve Samson',
