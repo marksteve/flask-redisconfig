@@ -89,6 +89,21 @@ class Cli(cmd.Cmd, object):
         except ValueError:
             self.do_help('get')
 
+    def do_del(self, args):
+        """
+        del KEY
+
+        Deletes a config value
+        """
+        try:
+            key, = args.split(' ', 1)
+            if not key:
+                raise ValueError
+            del self.redisconfig[key]
+            print 'Deleted %r' % key
+        except ValueError:
+            self.do_help('del')
+
     def do_list(self, args):
         """
         list
