@@ -111,8 +111,8 @@ class Cli(cmd.Cmd, object):
         Lists all config items
         """
         self.redisconfig.sync()
-        for key, value in self.redisconfig.durables().iteritems():
-            print '%s = %r' % (key, value)
+        for key in sorted(self.redisconfig.durables()):
+            print '%s = %r' % (key, self.redisconfig[key])
 
     def do_help(self, args):
         """
