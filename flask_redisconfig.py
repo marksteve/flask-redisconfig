@@ -81,7 +81,7 @@ class Cli(cmd.Cmd, object):
         Gets a config value
         """
         try:
-            key, = args.split(' ')
+            key, = args.split(' ', 1)
             if not key:
                 raise ValueError
             self.redisconfig.sync()
